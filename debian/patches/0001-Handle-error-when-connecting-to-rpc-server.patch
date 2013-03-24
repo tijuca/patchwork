@@ -1,0 +1,38 @@
+From: Carsten Schoenert <c.schoenert@t-online.de>
+Date: Sun, 24 Mar 2013 13:39:43 +0100
+Subject: Handle error when connecting to rpc server
+
+---
+ apps/patchwork/bin/pwclient |   12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/apps/patchwork/bin/pwclient b/apps/patchwork/bin/pwclient
+index 5fce359..498f175 100755
+--- a/apps/patchwork/bin/pwclient
++++ b/apps/patchwork/bin/pwclient
+@@ -209,8 +209,14 @@ def action_list(rpc, filter, submitter_str, delegate_str):
+     patches = rpc.patch_list(filter.d)
+     list_patches(patches)
+ 
+-def action_projects(rpc):
+-    projects = rpc.project_list("", 0)
++def action_projects(rpc, url):
++    try:
++        projects = rpc.project_list("", 0)
++    except Exception as e:
++        sys.stderr.write("Unable to list projects at '%s': %s\n"
++                         % (url, e))
++        sys.exit(1)
++
+     print("%-5s %-24s %s" % ("ID", "Name", "Description"))
+     print("%-5s %-24s %s" % ("--", "----", "-----------"))
+     for project in projects:
+@@ -436,7 +442,7 @@ def main():
+         action_list(rpc, filt, submitter_str, delegate_str)
+ 
+     elif action.startswith('project'):
+-        action_projects(rpc)
++        action_projects(rpc, url)
+ 
+     elif action.startswith('state'):
+         action_states(rpc)
