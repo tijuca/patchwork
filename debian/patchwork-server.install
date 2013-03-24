@@ -1,0 +1,3 @@
+apps /usr/share/patchwork/
+htdocs /usr/share/patchwork/
+templates /usr/share/patchwork/

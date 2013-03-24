@@ -1,0 +1,43 @@
+Source: patchwork
+Section: devel
+Priority: extra
+Maintainer: Carsten Schoenert <c.schoenert@t-online.de>
+Build-Depends: debhelper (>= 8.0.0),
+    python-dev,
+    python-django,
+    python-psycopg2,
+    postgresql
+Standards-Version: 3.9.4
+Homepage: http://jk.ozlabs.org/projects/patchwork/
+#Vcs-Git: git://git.debian.org/collab-maint/patchwork.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/patchwork.git;a=summary
+
+Package: patchwork-client
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends},
+    patch,
+    git
+Description: Console Client for Patchwork
+ pwclient is the command-line client for patchwork. Currently, it
+ provides access to some read-only features of patchwork, such as
+ downloading and applying patches.
+ For easier usage you may want to create a optional .pwclientrc file in
+ your Home directory.
+ To apply patches directly to a local git repository pwclient use the
+ 'git am' command.
+
+Package: patchwork-server
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends},
+ python-django,
+ python-psycopg2,
+ libjs-jquery,
+ patchwork-client,
+ postgresql
+Description: A web-based patch tracking system
+ Patches that have been sent to a mailing list are 'caught' by the system,
+ and appear on a web page. Any comments posted that reference the patch
+ are appended to the patch page too. Any VCS is supported.
+ The project's maintainer(s) can then scan through the list of patches,
+ marking each with a certain state, such as Accepted, Rejected or Under
+ Review. Old patches can be sent to the archive or deleted. 
