@@ -1,0 +1,123 @@
+.TH pwclient 1  "March, 2013" "version 0.1" "USER COMMANDS"
+
+.SH NAME
+pwclient \- user client to view and change patches on a patchwork
+server
+
+.SH SYNOPSIS
+.B pwclient
+<\fIACTION\fR> [\fIOPTIONS\fR]
+
+.SH DESCRIPTION
+pwclient is a user side client wich interacts with one or more patchwork servers
+which are difiened in the file \fI~.pwclientrc\fR. 
+.PP
+The goal of pwclient is to mark patches to catalogise them with varoius states
+like 'New', 'Accepted', 'ToReview', 'Rejected' or equal. The options of states
+have to be definated on the server side.
+pwclient is also able to apply a patch to the local git tree and take further
+action via hooks.
+
+.SH ACTION
+.TP
+\ apply <\fImessageID\fR|\fISHA1-ID\fR>
+Apply a patch in the current dir using 'patch -p1'
+.TP
+\ git-am <\fImessageID\fR|\fISHA1-ID\fR>
+Apply a patch to current git branch using 'git am' command
+.TP
+\ get <\fImessageID\fR|\fISHA1-ID\fR>
+Download a patch and save it locally
+.TP
+\ info <\fImessageID\fR|\fISHA1-ID\fR>
+Display patchwork info about a given patch ID
+.TP
+\ projects
+List all projects
+.TP
+\ states
+Show list of potential patch states
+.TP
+\ view <\fImessageID\fR|\fISHA1-ID\fR>
+View a patch
+.TP
+\ update [-s \fIstate\fR] [-c \fIcommit-ref\fR] <\fImessageID\fR|\fISHA1-ID\fR>
+Update a patches
+.TP
+\ list [-s \fIstate\fR|-p \fIproject\fR|-w \fIwho\fR|-d \fIwho\fR|-n \fImax #\fR|-m \fImessageID\fR]
+List patches, using the optional filters specified below and an optional
+substring to search for patches by name
+.TP
+\ search [-s \fIstate\fR|-p \fIproject\fR|-w \fIwho\fR|-d \fIwho\fR|-n \fImax #\fR|-m \fImessageID\fR]
+Same as 'list'
+
+." ----Options----
+.SH OPTIONS
+.SS "Filter options for 'list' and 'search'"
+.RS
+.TP
+-s <\fIstate\fR>
+Filter by patch state (e.g., 'New', 'Accepted', etc.)
+.TP
+-p <\fIproject\fR>
+Filter by project name (see 'projects' for list)
+.TP
+-w <\fIwho\fR>
+Filter by submitter (name, e-mail substring search)
+.TP
+-d <\fIwho\fR>
+Filter by delegate (name, e-mail substring search)
+.TP
+-n <\fImax #\fR>
+Restrict number of results
+.TP
+-m <\fIMessageID\fR>
+Filter by Message-Id
+
+
+.SH EXAMPLES
+.TP
+List all Projects
+.B pwclient
+\-projects
+.PP
+
+.TP
+List all Patches
+.B pwclient
+\-list
+.PP
+
+.TP
+List all Patches by [\fIUser\fR]
+.B pwclient
+\-list -w [\fIUser\fR]
+.PP
+
+.TP
+List all Patches with State 'New'
+.B pwclient
+\-list -s New
+.PP
+
+.TP
+List all Patches in project 'website' with State 'New' from Author bigmaster@mail.com with max 20 results
+.B pwclient
+\-list -p website -s New -w bigmaster@mail.com -n 20
+.PP
+
+.nf
+_vorformatierter
+_Text_hier
+.fi
+
+.SH URL
+.mso www.tmac
+.URL "http://jk.ozlabs.org/projects/patchwork/" "Patchwork"
+
+.SH AUTHOR
+Carsten Schoenert
+
+.SH SEE ALSO
+pwclientrc(5)
+

@@ -1,0 +1,39 @@
+.TH pwclientrc 5  "March, 2013" "version 0.1" "File formats"
+
+.SH NAME
+/$HOME/pwclientrc \- user client configuration file for pwclient
+
+.SH DESCRIPTION
+The file .pwclientrc is a configuration file for \fIpwclient\fR which
+held the configuration for pwclient to interacts with one or more patchwork
+servers. The file has to placed into the Homedirectory of each User.
+.P
+The file needs two sections \fI[base]\fR and \fI[url]\fR which contains
+the needed entrys for the pwclient script.
+
+.nf
+# .pwclientrc
+# Minimal config for the pwclient
+
+[base]
+url: http://somethere.example.org/xmlrpc/
+project: projectname
+
+# Adding authentication parameters will allow you to use the 'update'
+# command on patches that you are allowed to edit.
+[auth]
+username: user
+password: password
+.fi
+
+
+.SH URL
+.mso www.tmac
+.URL "http://jk.ozlabs.org/projects/patchwork/" "Patchwork"
+
+.SH AUTHOR
+Carsten Schoenert
+
+.SH SEE ALSO
+pwclient(1)
+
